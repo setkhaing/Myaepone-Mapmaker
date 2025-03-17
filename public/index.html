@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myaepone Map Maker</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Menu Bar -->
+    <div id="menu-bar">
+        <div id="logo-container">
+            <img src="assets/Myaepone_logo.png" alt="Myaepone Map Maker Logo" id="logo">
+        </div>
+        <div id="button-container">
+            <button id="upload-shapefile-btn" title="Upload Shapefile"><i class="fas fa-upload"></i> Upload Shapefile</button>
+            <button id="open-data-mm-btn" title="Open Data MM"><i class="fas fa-database"></i> Open Data MM</button>
+            <button id="draw-btn" title="Draw"><i class="fas fa-pen"></i> Draw</button>
+            <button id="query-btn" title="Query"><i class="fas fa-search"></i> Query</button>
+            <button id="export-btn" title="Export Map"><i class="fas fa-download"></i> Export</button>
+            <div class="basemap-selector">
+                <select id="basemap-select">
+                    <option value="cartodb-light">CartoDB Light</option>
+                    <option value="cartodb-dark">CartoDB Dark</option>
+                    <option value="osm">OpenStreetMap</option>
+                    <option value="satellite">Satellite (Esri)</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Container -->
+    <div id="map-container">
+        <div id="map"></div>
+    </div>
+
+    <!-- Hidden File Input for Shapefile Upload -->
+    <input type="file" id="shapefile-input" accept=".zip" style="display: none;">
+
+    <!-- Open Data MM Modal -->
+    <div id="open-data-mm-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <h2>Open Data MM</h2>
+            <ul id="open-data-mm-list">
+                <li><label><input type="checkbox" value="myanmar-boundary"> Myanmar Boundary</label></li>
+                <li><label><input type="checkbox" value="myanmar-states"> Myanmar States</label></li>
+                <li><label><input type="checkbox" value="myanmar-districts"> Myanmar Districts</label></li>
+                <li><label><input type="checkbox" value="myanmar-townships"> Myanmar Townships</label></li>
+            </ul>
+            <button id="add-open-data-mm-btn">Add Selected Layers</button>
+        </div>
+    </div>
+
+    <!-- Draw Modal -->
+    <div id="draw-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <h2>Draw on Map</h2>
+            <p>Select a drawing type:</p>
+            <button id="draw-point-btn">Draw Point</button>
+            <button id="draw-line-btn">Draw Line</button>
+            <button id="draw-polygon-btn">Draw Polygon</button>
+        </div>
+    </div>
+
+    <!-- Export Modal -->
+    <div id="export-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <h2>Export Map</h2>
+            <p>Select an export option:</p>
+            <div id="export-layer-selection">
+                <p>Select layers to export:</p>
+                <ul id="export-layer-list"></ul>
+            </div>
+            <button id="export-png-btn">Export as PNG</button>
+            <button id="export-geojson-btn">Export Layers as GeoJSON</button>
+        </div>
+    </div>
+
+    <!-- Query Modal -->
+    <div id="query-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <h2>Query Layers</h2>
+            <div class="query-form">
+                <div class="query-layer-selection">
+                    <label for="query-layer-select">Select Layer:</label>
+                    <select id="query-layer-select"></select>
+                </div>
+                <div id="query-conditions">
+                    <!-- Conditions will be added here -->
+                </div>
+                <button id="add-condition-btn">Add Condition</button>
+                <div class="query-actions">
+                    <button id="run-query-btn">Run Query</button>
+                    <button id="clear-query-btn">Clear</button>
+                </div>
+            </div>
+            <div id="query-results">
+                <h3>Results: <span id="result-count">0</span> features</h3>
+                <div id="result-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- html2canvas for PNG export -->
+    <script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+    <!-- Shpjs for shapefile parsing -->
+    <script src="https://unpkg.com/shpjs@latest/dist/shp.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="../src/js/utils.js"></script>
+    <script src="../src/js/layers.js"></script>
+    <script src="../src/js/map.js"></script>
+    <script src="../src/js/data.js"></script>
+    <script src="../src/js/layers.js"></script>
+    <script src="../src/js/export.js"></script>
+    <script src="../src/js/query.js"></script>
+</body>
+</html>
